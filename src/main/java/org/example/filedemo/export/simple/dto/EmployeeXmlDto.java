@@ -1,4 +1,6 @@
-package org.example.filedemo.dto;
+package org.example.filedemo.export.simple.dto;
+
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -6,7 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public record EmployeeDto(
+@JacksonXmlRootElement(localName = "employee")
+public record EmployeeXmlDto(
         UUID id,
         String name,
         int age,
@@ -15,6 +18,4 @@ public record EmployeeDto(
         LocalDate hireDate,
         LocalDateTime lastLogin,
         Map<String, Object> metadata
-) {
-}
-
+) {}

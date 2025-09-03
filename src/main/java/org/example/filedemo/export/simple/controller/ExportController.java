@@ -1,16 +1,16 @@
-package org.example.filedemo.controller;
+package org.example.filedemo.export.simple.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.example.filedemo.dto.AddressDto;
-import org.example.filedemo.dto.EmployeeCsvDto;
-import org.example.filedemo.dto.EmployeeDto;
-import org.example.filedemo.dto.EmployeeListXmlDto;
-import org.example.filedemo.dto.EmployeeXmlDto;
-import org.example.filedemo.service.CsvReportExporter;
-import org.example.filedemo.service.FileStorageService;
-import org.example.filedemo.service.JsonReportExporter;
-import org.example.filedemo.service.XmlReportExporter;
+import org.example.filedemo.export.simple.dto.AddressDto;
+import org.example.filedemo.export.simple.dto.EmployeeCsvDto;
+import org.example.filedemo.export.simple.dto.EmployeeDto;
+import org.example.filedemo.export.simple.dto.EmployeeListXmlDto;
+import org.example.filedemo.export.simple.dto.EmployeeXmlDto;
+import org.example.filedemo.export.simple.service.CsvReportExporter;
+import org.example.filedemo.export.simple.service.FileStorageService;
+import org.example.filedemo.export.simple.service.JsonReportExporter;
+import org.example.filedemo.export.simple.service.XmlReportExporter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;

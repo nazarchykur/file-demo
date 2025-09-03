@@ -1,4 +1,4 @@
-package org.example.filedemo.dto;
+package org.example.filedemo.export.simple.dto;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
