@@ -1,0 +1,22 @@
+<employees>
+  <employee>
+    <id>f1e791ca-08f0-43d6-95e6-2a9a789fdca3</id>
+    <name>Alice</name>
+    <age>30</age>
+    <skills>
+      <skills>Java</skills>
+      <skills>Spring Boot</skills>
+    </skills>
+    <address>
+      <street>Main St</street>
+      <city>Kyiv</city>
+      <country>UA</country>
+    </address>
+    <hireDate>2025-09-03</hireDate>
+    <lastLogin>2025-09-03T16:17:48.111594</lastLogin>
+    <metadata>
+      <level>senior</level>
+      <remote>true</remote>
+    </metadata>
+  </employee>
+</employees>

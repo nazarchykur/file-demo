@@ -1,0 +1,17 @@
+[ {
+  "id" : "dfc6e332-4145-4593-ba01-2d09d1526a41",
+  "name" : "Alice",
+  "age" : 30,
+  "skills" : [ "Java", "Spring Boot" ],
+  "address" : {
+    "street" : "Main St",
+    "city" : "Kyiv",
+    "country" : "UA"
+  },
+  "hireDate" : "2025-09-03",
+  "lastLogin" : "2025-09-03T15:24:43.798197",
+  "metadata" : {
+    "level" : "senior",
+    "remote" : true
+  }
+} ]

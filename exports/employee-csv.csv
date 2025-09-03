@@ -1,0 +1,2 @@
+id,name,age,skills,street,city,country,hireDate,lastLogin,metadata
+"20d15f06-a7c0-4e04-8fb6-27766daf2296",Alice,30,"Java;Spring Boot","Main St",Kyiv,UA,2025-09-03,"2025-09-03T15:54:12.71391","{""remote"":true,""level"":""senior""}"
