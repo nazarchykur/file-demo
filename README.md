@@ -103,3 +103,75 @@
         CSV → завжди плоский, тому робимо спеціальний DTO з розгортанням об’єктів і масивів у рядки.
         XML → підтримує вкладені структури, але потребує спеціальних DTO і Jackson-анотацій для красивого кореневого тегу.
         Дати (LocalDate, LocalDateTime) в усіх форматах серіалізуються через модуль jackson-datatype-jsr310.
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+## Localization in CSV Export
+
+### Як працює
+- Використовується Spring `MessageSource`, який читає файли з ресурсів:  
+  src/main/resources/messages/messages_en.properties
+  src/main/resources/messages/messages_uk.properties
+
+pgsql
+Copy code
+- У цих файлах зберігаються тільки **ключі для заголовків CSV**, наприклад:
+```properties
+# messages_en.properties
+export.school.header.id=School ID
+export.school.header.name=School Name
+export.school.header.city=City
+export.school.header.studentsCount=Number of Students
+
+# messages_uk.properties
+export.school.header.id=Ідентифікатор
+export.school.header.name=Назва школи
+export.school.header.city=Місто
+export.school.header.studentsCount=Кількість учнів
+```
+
+- DTO (SchoolCsvDto) містить тільки дані (id, name, city, studentsCount).
+- SchoolExportTranslationService читає ключі з MessageSource і формує локалізовані заголовки.
+- SchoolCsvExporter мапить DTO → Map з локалізованими ключами та будує CSV з правильними заголовками.
+
+Приклад результату
+EN (/api/schools/export?lang=en):
+
+csv
+```
+School ID,School Name,City,Number of Students
+1,Kyiv School #1,Kyiv,500
+2,Lviv Gymnasium,Lviv,350
+```
+
+UK (/api/schools/export?lang=uk):
+
+csv
+```
+Ідентифікатор,Назва школи,Місто,Кількість учнів
+1,Kyiv School #1,Kyiv,500
+2,Lviv Gymnasium,Lviv,350
+```
+
+Project Structure (скорочено)
+```
+org.example.filedemo
+├── config
+│     └── MessageConfig.java
+│
+├── controller
+│     └── SchoolExportController.java
+│
+├── dto
+│     └── SchoolCsvDto.java
+│
+├── service
+│     ├── AbstractExportTranslationService.java
+│     ├── SchoolExportTranslationService.java
+│     ├── SchoolCsvExporter.java
+│     └── SchoolExportService.java
+│
+└── resources/messages
+├── messages_en.properties
+└── messages_uk.properties
+```
