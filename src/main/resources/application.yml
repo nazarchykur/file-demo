@@ -1,3 +1,19 @@
 spring:
   application:
     name: file-demo
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/file_db
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update   # для демо; у реалі — validate/migrate з Flyway/Liquibase
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
