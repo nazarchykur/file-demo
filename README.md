@@ -175,3 +175,92 @@ org.example.filedemo
 ├── messages_en.properties
 └── messages_uk.properties
 ```
+
+
+---
+## 📥 Import CSV → Database
+Як працює
+
+- CSV-файл завантажується через REST API (/api/schools/import).
+- Контролер (SchoolImportController) делегує логіку сервісу (SchoolImportService).
+- Сервіс читає файл за допомогою Jackson CsvMapper, мапить у DTO (SchoolCsvDto), потім у Entity (School), і зберігає через SchoolRepository у Postgres.
+
+DTO (для імпорту)
+```
+public record SchoolCsvDto(
+Long id,
+String name,
+String city,
+Integer studentsCount
+) {}
+```
+
+Entity (зберігається у БД)
+```
+@Entity
+@Table(name = "schools")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class School {
+@Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+private Long id;
+
+    private String name;
+    private String city;
+    private Integer studentsCount;
+}
+```
+
+### Приклад CSV файлу
+
+importfile/schools.csv
+```
+id,name,city,studentsCount
+1,Kyiv School #1,Kyiv,500
+2,Lviv Gymnasium,Lviv,350
+```
+
+Виклик API (Postman / curl)
+```
+curl --location 'http://localhost:8080/api/schools/import' \
+--header 'Content-Type: multipart/form-data' \
+--form 'file=@"/Users/nchykur/IdeaProjects/my_projects/file-demo/importfile/schools.csv"'
+```
+
+
+✅ Результат:
+
+- Spring Boot парсить файл.
+- Дані зберігаються у таблиці schools.
+
+У Postgres після запиту:
+```
+SELECT * FROM schools;
+```
+
+отримаємо:
+    
+    id |      name        | city | students_count
+    ----+------------------+------+----------------
+    1 | Kyiv School #1   | Kyiv |            500
+    2 | Lviv Gymnasium   | Lviv |            350
+
+Project Structure (оновлено)
+```
+org.example.filedemo
+├── importfile
+│    ├── controller
+│    │     └── SchoolImportController.java
+│    ├── entity
+│    │     └── School.java
+│    ├── repository
+│    │     └── SchoolRepository.java
+│    └── service
+│          └── SchoolImportService.java
+│
+└── resources/importfile/schools.csv
+```
